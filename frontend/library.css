@@ -1,0 +1,131 @@
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* PAGE BACKGROUND */
+body {
+  background-color: #f4f6f9;
+  padding-bottom: 40px;
+  background-image: url("library.png"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* PAGE HEADER */
+.page-header {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  color: #EBE1D1;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  font-size: 15px;
+  color: #EBE1D1;
+}
+
+/* SECTION TITLES */
+h1, h3 {
+  text-align: center;
+  color:   #EBE1D1;
+  margin-top: 20px;
+}
+
+h3 {
+  font-family: 'Poppins' , sans-serif;
+  font-weight: bolder;
+
+  color:   #EBE1D1;
+}
+
+/* BOOKS & SLOTS LAYOUT */
+.books,
+.offline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* CARD DESIGN */
+.Book-card {
+  background-color: #ffffff;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Book-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.Book-card h2 {
+  color: #3f51b5;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.Book-card p {
+  color: #333;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+/* BOOK BUTTON */
+.book-btn {
+  margin-top: 12px;
+  padding: 10px 16px;
+  background-color:#2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.book-btn:hover {
+  background-color:#2563eb;
+}
+
+/* NOTICE CARD */
+.notice-card {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px 25px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border-left: 6px solid #ff9800;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.notice-card h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+  color: #ff9800;
+}
+
+.notice-card p {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.notice-card strong {
+  color: #e65100;
+}
