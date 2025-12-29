@@ -33,7 +33,7 @@ app.use(session({
 // --- Routes ---
 
 // Serve Home Page
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'frontend/index.html')));
 
 // Handle Signup
 app.post('/signup', async (req, res) => {
@@ -52,7 +52,7 @@ app.post('/signup', async (req, res) => {
 
     await newUser.save();
     console.log("User created successfully");
-    res.redirect('/login.html'); // Redirect to login after signup
+    res.redirect('frontend/login.html'); // Redirect to login after signup
   } catch (error) {
     console.error(error);
     res.status(400).send("Error creating account. Email might already exist or role is invalid.");
@@ -69,16 +69,16 @@ app.post('/login', async (req, res) => {
     req.session.userRole = user.role;
     req.session.userEmail = user.email;
     // Pass the role as a query parameter so dashboard.html can load the right view
-    res.redirect('/dashboard.html?role=${user.role.toLowerCase()}');
+    res.redirect('frontend/dashboard.html?role=${user.role.toLowerCase()}');
   } else {
     res.status(401).send("Invalid credentials.");
   }
 });
 
 // Protection middleware for Dashboard
-app.get('/dashboard.html', (req, res, next) => {
+app.get('frontend/dashboard.html', (req, res, next) => {
   if (!req.session.userRole) {
-    return res.redirect('/login.html');
+    return res.redirect('frontend/login.html');
   }
   next();
 });
