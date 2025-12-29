@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login | Campus Resource Optimizer</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+
+<section class="login-hero">
+  <div class="login-card">
+
+    <h2>Campus Portal Login</h2>
+    <p>Select your role and sign in</p>
+
+        <div class="dropdown-container">
+      <label for="resource">Select Role</label>
+      <select id="resource" name="resource">
+        <option value="">-- Choose Role --</option>
+        <option value="class">Student</option>
+        <option value="hall">Admin</option>
+        <option value="faculty">Faculty</option>
+      </select>
+    </div>
+
+
+
+    <form>
+      <div class="field">
+        <input type="email" required />
+        <label>Email Address</label>
+      </div>
+
+      <div class="field">
+        <input type="password" required />
+        <label>Password</label>
+      </div>
+
+      <button class="login-btn">Login</button>
+
+      <div class="extras">
+        <a href="#">Forgot password?</a>
+        <a href="signup.html">Create account</a>
+      </div>
+    </form>
+
+  </div>
+</section>
+
+</body>
+</html>
