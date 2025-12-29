@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | CampusFlow</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #f8fafc;
+      --sidebar-bg: #1e293b;
+      --text-main: #334155;
+    }
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; background: var(--bg); height: 100vh; }
+    
+    /* Sidebar */
+    .sidebar { width: 250px; background: var(--sidebar-bg); color: white; padding: 20px; flex-shrink: 0; }
+    .sidebar h2 { color: #38bdf8; margin-bottom: 30px; }
+    .nav-links { list-style: none; padding: 0; }
+    .nav-links li { padding: 12px; margin-bottom: 5px; border-radius: 6px; cursor: pointer; transition: 0.3s; }
+    .nav-links li:hover { background: #334155; }
+    .nav-links li.active { background: var(--primary); }
+
+    /* Main Content */
+    .main-content { flex-grow: 1; padding: 30px; overflow-y: auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .role-badge { background: #e2e8f0; padding: 5px 15px; border-radius: 20px; font-weight: bold; }
+    
+    /* Dashboard Cards */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+    .card h3 { margin-top: 0; color: var(--text-main); }
+    
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <h2>CampusFlow</h2>
+  <ul class="nav-links">
+    <li class="active">Dashboard</li>
+    <li class="role-item student-only">My Requests</li>
+    <li class="role-item faculty-only">Approve Requests</li>
+    <li class="role-item admin-only">User Management</li>
+    <li class="role-item admin-only">Resource Analytics</li>
+    <li>Settings</li>
+    <li><a href="index.html" style="color:white; text-decoration:none;">Logout</a></li>
+  </ul>
+</aside>
+
+<main class="main-content">
+  <header class="header">
+    <h1 id="welcome-msg">Welcome back!</h1>
+    <div>
+      <span>Viewing as: </span>
+      <select id="roleSelector" onchange="updateDashboard(this.value)">
+        <option value="student">Student</option>
+        <option value="faculty">Faculty</option>
+        <option value="admin">Admin</option>
+      </select>
+    </div>
+  </header>
+
+  <div id="student-view" class="role-view">
+    <div class="grid">
+      <div class="card"><h3>Available Labs</h3><p>4 labs open currently</p></div>
+      <div class="card"><h3>Active Requests</h3><p>2 pending approvals</p></div>
+      <div class="card"><h3>Recent Bookings</h3><p>Seminar Hall - Dec 28</p></div>
+    </div>
+  </div>
+
+  <div id="faculty-view" class="role-view hidden">
+    <div class="grid">
+      <div class="card"><h3>Pending Approvals</h3><p>12 new requests</p></div>
+      <div class="card"><h3>My Lab Schedule</h3><p>3 bookings today</p></div>
+      <div class="card"><h3>Conflict Alerts</h3><p>None</p></div>
+    </div>
+  </div>
+
+  <div id="admin-view" class="role-view hidden">
+    <div class="grid">
+      <div class="card"><h3>Total Users</h3><p>1,240 active</p></div>
+      <div class="card"><h3>System Status</h3><p>All resources online</p></div>
+      <div class="card"><h3>Resource Utilization</h3><p>85% this week</p></div>
+      <div class="card"><h3>New Signups</h3><p>5 pending review</p></div>
+    </div>
+  </div>
+</main>
+
+<script>
+  function updateDashboard(role) {
+    // Hide all views and sidebar items
+    document.querySelectorAll('.role-view').forEach(v => v.classList.add('hidden'));
+    document.querySelectorAll('.role-item').forEach(i => i.classList.add('hidden'));
+
+    // Show specific role view
+    document.getElementById(role + '-view').classList.remove('hidden');
+    
+    // Show specific sidebar items
+    document.querySelectorAll('.' + role + '-only').forEach(i => i.classList.remove('hidden'));
+    
+    document.getElementById('welcome-msg').innerText = `Welcome, ${role.charAt(0).toUpperCase() + role.slice(1)}!`;
+  }
+  
+  // Initialize as Student
+  updateDashboard('student');
+
+  // Add this inside your existing <script> tag in dashboard.html
+window.onload = async () => {
+  // In a real app, you'd fetch the role from a /get-user-session endpoint
+  // For this demo, the server-side redirect handles the entry.
+  // You can set the initial view based on a cookie or a simple fetch.
+  const params = new URLSearchParams(window.location.search);
+  const role = params.get('role') || 'student'; // Default to student
+  updateDashboard(role);
+};
+
+</script>
+
+</body>
+</html>
