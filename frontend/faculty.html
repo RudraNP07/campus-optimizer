@@ -61,5 +61,43 @@
 
   </section>
 
+  <script>
+document.querySelectorAll('.book-btn').forEach(button => {
+  button.addEventListener('click', async (e) => {
+    // Get data from the card where the button was clicked
+    const card = e.target.closest('div');
+    const resourceName = card.querySelector('h2').innerText;
+    const slotTime = card.querySelector('p:nth-of-type(2)').innerText;
+    
+    // Determine type based on page title or section
+    const resourceType = document.title.split('|')[0].trim();
+
+    try {
+      const response = await fetch('/api/book', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          resourceType: resourceType,
+          resourceName: resourceName,
+          slotTime: slotTime
+        })
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        alert(result.message);
+        e.target.innerText = "Booked";
+        e.target.disabled = true;
+        e.target.style.backgroundColor = "#ccc";
+      } else {
+        alert("Error: " + result.message);
+      }
+    } catch (err) {
+      alert("Failed to connect to server.");
+    }
+  });
+});
+</script>
+
 </body>
 </html>

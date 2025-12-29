@@ -61,7 +61,48 @@
     </div>
   </section>
 
+ <script>
+  // Select all "Book slot" buttons
+  document.querySelectorAll('.book-btn').forEach(button => {
+    button.addEventListener('click', async (e) => {
+      // 1. Find the parent card to get class details
+      const card = e.target.closest('.class-card');
+      const resourceName = card.querySelector('h2').innerText; // e.g., "G-1"
+      // Get the time from the paragraph containing "live:"
+      const slotTime = card.querySelector('p:nth-of-type(2)').innerText; 
+
+      try {
+        // 2. Send the booking request to the server
+        const response = await fetch('/api/book', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            resourceType: 'Class',
+            resourceName: resourceName,
+            slotTime: slotTime
+          })
+        });
+
+        const result = await response.json();
+
+        // 3. Provide feedback to the user
+        if (result.success) {
+          alert("Success: " + result.message);
+          e.target.innerText = "Booked";
+          e.target.style.backgroundColor = "#28a745"; // Change to green
+          e.target.disabled = true;
+        } else {
+          alert("Error: " + result.message);
+        }
+      } catch (err) {
+        alert("Server error. Make sure your server.js is running!");
+      }
+    });
+  });
+</script>
+
 </body>
+
 <section class="notice-card">
   <h3>Important Notice</h3>
   <p>

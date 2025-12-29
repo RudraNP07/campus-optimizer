@@ -83,4 +83,59 @@ app.get('frontend/dashboard.html', (req, res, next) => {
   next();
 });
 
+// --- Booking Schema ---
+const bookingSchema = new mongoose.Schema({
+  userEmail: { type: String, required: true },
+  resourceType: { type: String, required: true }, // 'Class', 'Lab', 'Library', 'Faculty'
+  resourceName: { type: String, required: true }, // e.g., 'G-1' or 'Dr. Sharma'
+  slotTime: { type: String, required: true },
+  bookingDate: { type: Date, default: Date.now }
+});
+
+const Booking = mongoose.model('Booking', bookingSchema);
+
+// --- API Route for Booking ---
+app.post('/api/book', async (req, res) => {
+  // Check if user is logged in
+  if (!req.session.userEmail) {
+    return res.status(401).json({ success: false, message: "Please login first" });
+  }
+
+  try {
+    const { resourceType, resourceName, slotTime } = req.body;
+
+    const newBooking = new Booking({
+      userEmail: req.session.userEmail,
+      resourceType,
+      resourceName,
+      slotTime
+    });
+
+    await newBooking.save();
+    res.json({ success: true, message: `Successfully booked ${resourceName}!` });
+  } catch (error) {
+    console.error("Booking Error:", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
+// --- Get User Bookings ---
+app.get('/api/my-bookings', async (req, res) => {
+  if (!req.session.userEmail) {
+    return res.status(401).json({ success: false, message: "Unauthorized" });
+  }
+
+  try {
+    const userBookings = await Booking.find({ userEmail: req.session.userEmail });
+    res.json(userBookings);
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Error fetching bookings" });
+  }
+});
+
+// Serve the My Bookings HTML page
+app.get('/my-bookings', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/my-bookings.html'));
+});
+
 app.listen(3000, () => console.log('Server running on http://localhost:3000'));

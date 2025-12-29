@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Bookings | CampusFlow</title>
+  <link rel="stylesheet" href="dashboard.css"> <style>
+    .booking-container { padding: 40px; max-width: 900px; margin: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+    th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+    th { background-color: #007bff; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">CampusFlow</div>
+  <nav>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="user.html">Profile</a>
+  </nav>
+</header>
+
+<section class="booking-container">
+  <h1>Your Reserved Slots</h1>
+  <p>Below are the details of your current bookings across campus resources.</p>
+  
+  <table id="bookings-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Resource/Name</th>
+        <th>Time Slot</th>
+        <th>Booking Date</th>
+      </tr>
+    </thead>
+    <tbody id="bookings-body">
+      </tbody>
+  </table>
+</section>
+
+<script>
+  async function loadBookings() {
+    try {
+      const response = await fetch('/api/my-bookings');
+      const data = await response.json();
+      const tableBody = document.getElementById('bookings-body');
+
+      if (data.length === 0) {
+        tableBody.innerHTML = "<tr><td colspan='4'>No bookings found.</td></tr>";
+        return;
+      }
+
+      tableBody.innerHTML = data.map(b => `
+        <tr>
+          <td><strong>${b.resourceType}</strong></td>
+          <td>${b.resourceName}</td>
+          <td>${b.slotTime}</td>
+          <td>${new Date(b.bookingDate).toLocaleDateString()}</td>
+        </tr>
+      `).join('');
+    } catch (err) {
+      console.error("Failed to load bookings", err);
+    }
+  }
+
+  window.onload = loadBookings;
+</script>
+
+</body>
+</html>
