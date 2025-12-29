@@ -9,7 +9,7 @@ const app = express();
 
 // --- MongoDB Connection ---
 // Replace 'your_mongodb_uri' with your actual MongoDB Compass or Atlas connection string
-mongoose.connect('mongodb://localhost:27017/campusFlowDB')
+mongoose.connect('mongodb+srv://tgdadabhai99_db_user:Rudraistired@portfolio.gmhtwqm.mongodb.net/?appName=Portfolio?retryWrites=true&w=majority')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost:27017/campusFlowDB')
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: String, required: true, enum: ['student', 'faculty', 'admin'] }
+  role: { type: String, required: true, enum: ['Student', 'Faculty', 'Admin'] }
 });
 
 const User = mongoose.model('User', userSchema);
@@ -34,7 +34,7 @@ app.use(session({
 // --- Routes ---
 
 // Serve Home Page
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, './index.html')));
 
 // Handle Signup
 app.post('/signup', async (req, res) => {
@@ -50,7 +50,7 @@ app.post('/signup', async (req, res) => {
     });
 
     await newUser.save();
-    res.redirect('/login.html');
+    res.redirect('./login.html');
   } catch (error) {
     res.status(400).send("Error creating account. Email might already exist.");
   }
@@ -65,16 +65,16 @@ app.post('/login', async (req, res) => {
     // Store user data in session
     req.session.userRole = user.role;
     req.session.userEmail = user.email;
-    res.redirect('/dashboard.html');
+    res.redirect('./dashboard.html');
   } else {
     res.status(401).send("Invalid credentials.");
   }
 });
 
 // Protection middleware for Dashboard
-app.get('/dashboard.html', (req, res, next) => {
+app.get('./dashboard.html', (req, res, next) => {
   if (!req.session.userRole) {
-    return res.redirect('/login.html');
+    return res.redirect('./login.html');
   }
   next();
 });
