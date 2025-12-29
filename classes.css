@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* ---------- ROOT COLORS ---------- */
+:root {
+  --primary: #2563eb;
+  --secondary: #1e40af;
+  --bg: #f8fafc;
+  --text: #0f172a;
+  --muted: #64748b;
+  --card: #ffffff;
+  --shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* ---------- DARK MODE ---------- */
+body.dark {
+  --bg: #0f172a;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --card: #1e293b;
+}
+
+/* ---------- GLOBAL ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    
+  font-family: 'inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 60px;
+  background-image: url("classes.png"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ---------- PAGE HEADER ---------- */
+.page-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.page-header h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.page-header p {
+  font-size: 16px;
+  color:rgb(37, 36, 36);
+}
+
+/* ---------- GRID LAYOUT ---------- */
+.classes,
+.labs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  margin-bottom: 70px;
+}
+
+/* ---------- CARD ---------- */
+.class-card {
+  background: var(--card);
+  padding: 32px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft hover overlay */
+.class-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.12),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.class-card:hover::after {
+  opacity: 1;
+}
+
+.class-card:hover {
+  transform: translateY(-10px);
+}
+
+/* ---------- CARD CONTENT ---------- */
+.class-card h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.class-card p {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* ---------- BUTTON ---------- */
+.book-btn {
+  margin-top: 18px;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  background: var(--secondary);
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.35);
+}
+
+.book-btn:active {
+  transform: scale(0.95);
+}
+
+.notice-card {
+  max-width: 1000px;
+  margin: 20px auto 30px;
+  padding: 20px 25px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border-left: 6px solid #3f51b5;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.notice-card h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #3f51b5;
+}
+
+.notice-card p {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.notice-card strong {
+  color: #1a237e;
+}
