@@ -205,6 +205,7 @@ body {
 /* ---------- SECTION COMMON ---------- */
 section {
   padding: 80px 60px;
+  align-items: center;
 }
 
 section h2 {
@@ -218,6 +219,7 @@ section h2 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 30px;
+  align-items: center;
 }
 
 .card {
@@ -226,6 +228,7 @@ section h2 {
   border-radius: 16px;
   box-shadow: var(--shadow);
   text-align: center;
+  margin-left: 100px;
   transition: transform 0.3s ease;
 }
 
