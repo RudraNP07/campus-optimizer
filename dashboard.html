@@ -90,32 +90,29 @@
 
 <script>
   function updateDashboard(role) {
-    // Hide all views and sidebar items
-    document.querySelectorAll('.role-view').forEach(v => v.classList.add('hidden'));
-    document.querySelectorAll('.role-item').forEach(i => i.classList.add('hidden'));
+      // 1. Hide all role-specific views and sidebar items
+      document.querySelectorAll('.role-view').forEach(v => v.classList.add('hidden'));
+      document.querySelectorAll('.role-item').forEach(i => i.classList.add('hidden'));
 
-    // Show specific role view
-    document.getElementById(role + '-view').classList.remove('hidden');
-    
-    // Show specific sidebar items
-    document.querySelectorAll('.' + role + '-only').forEach(i => i.classList.remove('hidden'));
-    
-    document.getElementById('welcome-msg').innerText = `Welcome, ${role.charAt(0).toUpperCase() + role.slice(1)}!`;
-  }
+  // 2. Show the specific role view (e.g., student-view, faculty-view)
+     const viewElement = document.getElementById(role + '-view');
+       if (viewElement) {
+      viewElement.classList.remove('hidden');
+      }
   
-  // Initialize as Student
-  updateDashboard('student');
+   // 3. Show only relevant sidebar items
+     document.querySelectorAll('.' + role + '-only').forEach(i => i.classList.remove('hidden'));
+  
+   // 4. Update the welcome message
+     document.getElementById('welcome-msg').innerText = `Welcome, ${role.charAt(0).toUpperCase() + role.slice(1)}!`;
+}
 
-  // Add this inside your existing <script> tag in dashboard.html
-window.onload = async () => {
-  // In a real app, you'd fetch the role from a /get-user-session endpoint
-  // For this demo, the server-side redirect handles the entry.
-  // You can set the initial view based on a cookie or a simple fetch.
-  const params = new URLSearchParams(window.location.search);
-  const role = params.get('role') || 'student'; // Default to student
-  updateDashboard(role);
-};
-
+   // Automatically load the correct view when the page opens
+     window.onload = () => {
+     const params = new URLSearchParams(window.location.search);
+     const role = params.get('role') || 'student'; // Default to student if no role is found
+     updateDashboard(role);
+     };
 </script>
 
 </body>
