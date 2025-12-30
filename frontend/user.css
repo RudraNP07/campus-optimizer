@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root {
+  --primary: #2563eb;
+  --secondary: #1e40af;
+  --bg: #f8fafc;
+  --text: #0f172a;
+  --muted: #64748b;
+  --card: rgba(255, 255, 255, 0.85);
+  --shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #e0e7ff, #f8fafc);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  padding: 18px 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.navbar nav a {
+  margin-left: 28px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.navbar nav a:hover {
+  color: var(--primary);
+}
+
+/* HERO */
+.hero {
+  padding: 120px 60px 80px;
+  text-align: center;
+}
+
+.hero-box {
+  max-width: 800px;
+  margin: auto;
+}
+
+.hero h1 {
+  font-size: 46px;
+  font-weight: 700;
+}
+
+.hero h1 span {
+  color: var(--primary);
+}
+
+.hero p {
+  margin-top: 14px;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+/* USER CARD */
+.user-card {
+  background: var(--card);
+  width: 320px;
+  margin: auto;
+  padding: 35px;
+  text-align: center;
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  margin-top: -20px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  font-size: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.user-card h2 {
+  font-size: 22px;
+  margin-bottom: 6px;
+}
+
+.user-card p {
+  color: var(--muted);
+}
+
+/* ACTIONS */
+.actions {
+  padding: 80px 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+}
+
+.action-card {
+  background: var(--card);
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+.action-card:hover {
+  transform: translateY(-10px);
+}
+
+.action-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.action-card p {
+  color: var(--muted);
+}
+
+/* LOGOUT */
+.logout-box {
+  text-align: center;
+  padding-bottom: 80px;
+}
+
+.logout {
+  padding: 14px 36px;
+  border-radius: 12px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  opacity: 0.9;
+}
