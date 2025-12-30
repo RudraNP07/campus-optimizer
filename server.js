@@ -1,3 +1,5 @@
+require('dotenv').config(); // Load variables at the very top
+console.log("DB URI Loaded:", process.env.MONGODB_URI ? "YES" : "NO");
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -8,7 +10,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // --- MongoDB Connection ---
-mongoose.connect('mongodb+srv://tgdadabhai99_db_user:Rudraistired@portfolio.gmhtwqm.mongodb.net/?appName=Portfolio&retryWrites=true&w=majority')
+mongoose.connect('process.env.MONGO_URI')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
@@ -58,6 +60,12 @@ app.post('/signup', async (req, res) => {
     res.status(400).send("Error creating account. Email might already exist or role is invalid.");
   }
 });
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'fallback_secret', // Use .env secret
+  resave: false,
+  saveUninitialized: false
+}));
 
 // Handle Login
 app.post('/login', async (req, res) => {
@@ -138,4 +146,6 @@ app.get('/my-bookings', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/my-bookings.html'));
 });
 
-app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+// Use the PORT from .env or default to 3000
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
