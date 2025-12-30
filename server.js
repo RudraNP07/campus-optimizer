@@ -1,5 +1,3 @@
-require('dotenv').config(); // Load variables at the very top
-console.log("DB URI Loaded:", process.env.MONGODB_URI ? "YES" : "NO");
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
@@ -10,7 +8,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // --- MongoDB Connection ---
-mongoose.connect('process.env.MONGO_URI')
+mongoose.connect('mongodb+srv://tgdadabhai99_db_user:Rudraistired@portfolio.gmhtwqm.mongodb.net/?appName=Portfolio&retryWrites=true&w=majority')
   .then(() => console.log('Connected to MongoDB...'))
   .catch(err => console.error('Could not connect to MongoDB:', err));
 
@@ -146,6 +144,4 @@ app.get('/my-bookings', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend/my-bookings.html'));
 });
 
-// Use the PORT from .env or default to 3000
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
